@@ -1,4 +1,4 @@
-// { calculate } import './calculator';
+import  { calculate } from './calculator.js';
 
 // TODO: Faire la manipulation du DOM dans ce fichier
 
@@ -181,8 +181,8 @@ console.log(displayed);
 function equals(event) {
   event.preventDefault();
 
-  if (calcul.innerText.includes("janvier")) {
-    calcul.innerText = "Junior";
+  if (calcul.innerText.includes("=")) {
+    // calcul.innerText = "";
   } else {
     // SecondOperand = input.value;
     calcul.innerText = calcul.innerText + " " + input.value;
