@@ -1,4 +1,4 @@
-import  { calculate } from './calculator.js';
+// { calculate } import './calculator';
 
 // TODO: Faire la manipulation du DOM dans ce fichier
 
@@ -26,10 +26,24 @@ function getBtnValue(event) {
 
   switch (event.target.innerText) {
     case "1":
-      displayed = displayed + "1";
+      if (!calcul.innerText == '') {
+        calcul.innerText = "";
+        displayed = ''
+        displayed = displayed + "1";
+      } else{
+        displayed = displayed + "1";
+      }
       break;
+
     case "2":
-      displayed = displayed + "2";
+      if (!calcul.innerText == '') {
+        calcul.innerText = "";
+        displayed = ''
+        displayed = displayed + "2";
+      } else{
+        displayed = displayed + "2";
+      }
+
       break;
     case "3":
       displayed = displayed + "3";
@@ -55,13 +69,12 @@ function getBtnValue(event) {
     case "0":
       if (displayed === "") {
         displayed = displayed + "0";
-      } else if (displayed > 0 || displayed.includes(".") ) {
+      } else if (displayed > 0 || displayed.includes(".")) {
         displayed = displayed + "0";
       }
       break;
     case ".":
-      if (displayed.includes(".") || displayed === '') {
-        
+      if (displayed.includes(".") || displayed === "") {
       } else {
         displayed = displayed + ".";
       }
@@ -69,6 +82,10 @@ function getBtnValue(event) {
   }
   input.value = displayed;
 }
+
+input.addEventListener("keydown", function (event) {
+  event.preventDefault();
+});
 
 // iterateur qui permet de recuperer la valeur de la touche appuyer
 numpad.forEach((number) => {
@@ -181,24 +198,32 @@ console.log(displayed);
 function equals(event) {
   event.preventDefault();
 
-  if (calcul.innerText.includes("=")) {
-    // calcul.innerText = "";
+  if (calcul.innerText.includes("=") || input.value === "") {
+    // calcul.innerText = '';
+    // calcul.innerText = input.value;
   } else {
-    // SecondOperand = input.value;
+    SecondOperand = input.value;
     calcul.innerText = calcul.innerText + " " + input.value;
-    // console.log(SecondOperand);
+    console.log(SecondOperand);
+
     input.value = eval(calcul.innerText);
+    
+    if (input.value === "Infinity") {
+      input.value = "Erreur";
+    }
     calcul.innerText = calcul.innerText + " " + "=";
-    // if(operationSign === '+'){
-    //   input.value = parseInt(firstOperand) + parseInt(SecondOperand)
-    // } else if(operationSign === '-') {
-    //   input.value = parseInt(firstOperand) - parseInt(SecondOperand)
-    // } else if(operationSign === '*') {
-    //   input.value = parseInt(firstOperand) * parseInt(SecondOperand)
-    // } else if (operationSign === '/') {
-    //   input.value = parseInt(firstOperand) / parseInt(SecondOperand)
-    // }
+
+    //if(operationSign === '+'){
+    //  input.value = parseInt(firstOperand) + parseInt(SecondOperand)
+    //}else if(operationSign === '-') {
+    //  input.value = parseInt(firstOperand) - parseInt(SecondOperand)
+    //}else if(operationSign === '*') {
+    //  input.value = parseInt(firstOperand) * parseInt(SecondOperand)
+    //}else if(operationSign === '/') {
+    //  input.value = parseInt(firstOperand) / parseInt(SecondOperand)
+    //}
   }
+  
 }
 
 btnEquals.addEventListener("click", equals);
