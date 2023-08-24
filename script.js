@@ -24,23 +24,11 @@ function getBtnValue(event) {
 
   switch (event.target.innerText) {
     case "1":
-      if (!calcul.innerText == '') {
-        calcul.innerText = "";
-        displayed = ''
-        displayed = displayed + "1";
-      } else{
-        displayed = displayed + "1";
-      }
+      displayed = displayed + "1";
       break;
 
     case "2":
-      if (!calcul.innerText == '') {
-        calcul.innerText = "";
-        displayed = ''
-        displayed = displayed + "2";
-      } else{
-        displayed = displayed + "2";
-      }
+      displayed = displayed + "2";
 
       break;
     case "3":
@@ -81,9 +69,9 @@ function getBtnValue(event) {
   input.value = displayed;
 }
 
-input.addEventListener("keydown", function (event) {
-  event.preventDefault();
-});
+// input.addEventListener("keydown", function(event) {
+//   event.preventDefault();
+// });
 
 // iterateur qui permet de recuperer la valeur de la touche appuyer
 numpad.forEach((number) => {
@@ -92,7 +80,10 @@ numpad.forEach((number) => {
 
 // function and selector for Reset
 function reset() {
-  location.reload();
+  // location.reload();
+  calcul.innerText = '';
+  input.value = '';
+  displayed = '';
 }
 
 btnReset.addEventListener("click", reset);
@@ -131,7 +122,9 @@ function minus(event) {
     operationSign = "-";
     clearInput();
   } else {
-    clearInput();
+    input.value = '-'
+    calcul.innerText = '';
+    // calcul.innerText = '-';
   }
 }
 
@@ -177,6 +170,8 @@ function plusMinus() {
     } else {
       input.value = "-" + displayed;
     }
+  } else {
+
   }
 }
 
@@ -185,8 +180,10 @@ btnPlusOuMoins.addEventListener("click", plusMinus);
 // fonction pourcentage
 function percentage(event) {
   event.preventDefault();
-  calcul.innerText = input.value + "%";
-  input.value = parseInt(input.value) / 100;
+  if(input.value && calcul.innerText === ''){
+    calcul.innerText = input.value + "%";
+    input.value = parseInt(input.value) / 100;
+  }
 }
 
 btnPercentage.addEventListener("click", percentage);
@@ -205,7 +202,7 @@ function equals(event) {
     console.log(SecondOperand);
 
     input.value = eval(calcul.innerText);
-    
+
     if (input.value === "Infinity") {
       input.value = "Erreur";
     }
@@ -221,7 +218,7 @@ function equals(event) {
     //  input.value = parseInt(firstOperand) / parseInt(SecondOperand)
     //}
   }
-  
+
 }
 
 btnEquals.addEventListener("click", equals);
